@@ -249,6 +249,10 @@ public class Update extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void Update_jButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Update_jButtonActionPerformed
+       if( OutletTag_jTextField.getText().equals("")||CoolerType_jTextField.getText().equals("")||CoolerAssetnumber_jTextField.getText().equals("")||CoolerTag_jTextField.getText().equals("")){
+    JOptionPane.showMessageDialog(null, "Please Fill all fields", "Invalid TextFields", JOptionPane.ERROR_MESSAGE);
+    return;//return from the method to allow the user to edit the JTextField
+}
         JDialog.setDefaultLookAndFeelDecorated(true);
         int response = JOptionPane.showConfirmDialog(null, "Do you want to continue?", "Confirm",
             JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
