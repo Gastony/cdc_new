@@ -258,6 +258,7 @@ public class Update extends javax.swing.JPanel {
             JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (response == JOptionPane.NO_OPTION) {
             System.out.println("No button clicked");
+             return;
         } else if (response == JOptionPane.YES_OPTION) {
             try {
                 String value1=OutletTag_jTextField.getText();
