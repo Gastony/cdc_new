@@ -8,6 +8,7 @@
 import java.awt.Color;
 import static java.awt.image.ImageObserver.WIDTH;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.Statement;
@@ -26,51 +27,7 @@ public class Orders extends javax.swing.JPanel {
      */
     public Orders() {
         initComponents();
-       try {
-    jTable1.setShowGrid(true);
-            Connection con = DBConn.myConn();
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT doc_no,contract_no,outlet_name,outlet_owner,location,street,next_to,route,empties,order_no,recomendations,approved_by_asm,approved_by_rsm FROM loan_coooler");
-            
-            // get columns info
-            ResultSetMetaData rsmd = rs.getMetaData();
-            int columnCount = rsmd.getColumnCount();
-            
-            // for changing column and row model
-            DefaultTableModel tm = (DefaultTableModel) jTable1.getModel();
-            
-            // clear existing columns 
-            tm.setColumnCount(0);
-            
-            // add specified columns to table
-            for (int i = 1; i <= columnCount; i++ ) {
-                tm.addColumn(rsmd.getColumnName(i));
-            }               
-                
-            // clear existing rows
-            tm.setRowCount(0);
-            
-            // add rows to table
-            while (rs.next()) {
-                String[] a = new String[columnCount];
-                for(int i = 0; i < columnCount; i++) {
-                    a[i] = rs.getString(i+1);
-                }
-                tm.addRow(a);
-            }
-            tm.fireTableDataChanged();
-                                           DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
-headerRenderer.setBackground(new Color(255, 0, 0));
-
-for (int i = 0; i < jTable1.getModel().getColumnCount(); i++) {
-        jTable1.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
-}
-            // Close ResultSet and Statement
-            rs.close();
-            
-        } catch (Exception ex) { 
-            JOptionPane.showMessageDialog(this, ex, ex.getMessage(), WIDTH, null);
-        } 
+      Orders();
     }
 
     /**
@@ -136,6 +93,57 @@ for (int i = 0; i < jTable1.getModel().getColumnCount(); i++) {
     }// </editor-fold>//GEN-END:initComponents
 
 
+public void Orders(){
+
+ try {
+    jTable1.setShowGrid(true);
+            Connection con = DBConn.myConn();
+            PreparedStatement stmt1 = con.prepareStatement(" ALTER view loanCoolerView as select   *  , case when approved_by_asm = 0 and approved_by_rsm = 0 THEN 'PENDING' when approved_by_asm = 0 and approved_by_rsm = 1 THEN 'PENDING' when approved_by_asm = 1 and approved_by_rsm = 0 THEN 'PENDING' when approved_by_asm = 1 and approved_by_rsm = 1 THEN 'APPROVED'else 'DECLINED' end cooler_status from loan_coooler");
+int rs1 = stmt1.executeUpdate();
+System.out.println(rs1+" records affected");
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT doc_no,contract_no,outlet_name,outlet_owner,location,street,next_to,route,order_no,recomendations,cooler_status FROM loanCoolerView");
+            
+            // get columns info
+            ResultSetMetaData rsmd = rs.getMetaData();
+            int columnCount = rsmd.getColumnCount();
+            
+            // for changing column and row model
+            DefaultTableModel tm = (DefaultTableModel) jTable1.getModel();
+            
+            // clear existing columns 
+            tm.setColumnCount(0);
+            
+            // add specified columns to table
+            for (int i = 1; i <= columnCount; i++ ) {
+                tm.addColumn(rsmd.getColumnName(i));
+            }               
+                
+            // clear existing rows
+            tm.setRowCount(0);
+            
+            // add rows to table
+            while (rs.next()) {
+                String[] a = new String[columnCount];
+                for(int i = 0; i < columnCount; i++) {
+                    a[i] = rs.getString(i+1);
+                }
+                tm.addRow(a);
+            }
+            tm.fireTableDataChanged();
+                                           DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
+headerRenderer.setBackground(new Color(255, 0, 0));
+
+for (int i = 0; i < jTable1.getModel().getColumnCount(); i++) {
+        jTable1.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
+}
+            // Close ResultSet and Statement
+            rs.close();
+            
+        } catch (Exception ex) { 
+            JOptionPane.showMessageDialog(this, ex, ex.getMessage(), WIDTH, null);
+        } 
+}
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
