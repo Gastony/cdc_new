@@ -150,7 +150,6 @@ for (int i = 0; i < jTable1.getModel().getColumnCount(); i++) {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

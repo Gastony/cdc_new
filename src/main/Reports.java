@@ -12,6 +12,7 @@ import java.sql.*;
 import java.text.MessageFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -28,6 +29,7 @@ public class Reports extends javax.swing.JPanel {
   
     public Reports() {
         initComponents();
+        
     }
 
     /**
@@ -43,8 +45,8 @@ public class Reports extends javax.swing.JPanel {
         Export_jButton = new javax.swing.JButton();
         Print_jButton = new javax.swing.JButton();
         customer_jButton = new javax.swing.JButton();
-        cooler_jButton = new javax.swing.JButton();
         contract_jButton = new javax.swing.JButton();
+        Cooler_jComboBox1 = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
@@ -74,22 +76,6 @@ public class Reports extends javax.swing.JPanel {
             }
         });
 
-        cooler_jButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/main/images/cooler0.png"))); // NOI18N
-        cooler_jButton.setText("Cooler Type");
-        cooler_jButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cooler_jButtonMouseClicked(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                cooler_jButtonMouseExited(evt);
-            }
-        });
-        cooler_jButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cooler_jButtonActionPerformed(evt);
-            }
-        });
-
         contract_jButton.setText("Contracts");
         contract_jButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -105,6 +91,13 @@ public class Reports extends javax.swing.JPanel {
             }
         });
 
+        Cooler_jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Declined", "Pending", "Approved", "Delivered", "Defective" }));
+        Cooler_jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Cooler_jComboBox1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -112,8 +105,8 @@ public class Reports extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(customer_jButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cooler_jButton, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(Cooler_jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(contract_jButton, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 223, Short.MAX_VALUE)
@@ -127,8 +120,8 @@ public class Reports extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Cooler_jComboBox1)
                     .addComponent(contract_jButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cooler_jButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -305,34 +298,54 @@ System.out.println(rs1+" records affected");
         // TODO add your handling code here:
     }//GEN-LAST:event_contract_jButtonMouseClicked
 
-    private void cooler_jButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cooler_jButtonActionPerformed
-        try {
-            jTable1.setShowGrid(true);
-            Connection con = DBConn.myConn();
-            PreparedStatement stmt1 = con.prepareStatement(" CREATE OR REPLACE  view coolerView as select   *  , case when is_rented = 0 THEN 'PENDING' when is_rented = 1  THEN 'RENTED'  end cooler_status from coolers ");
-            int rs1 = stmt1.executeUpdate();
-            System.out.println(rs1+" records affected");
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT cooler_sn,cooler_description,cooler_tag,cooler_status FROM coolerView ");
+    private void contract_jButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contract_jButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_contract_jButtonActionPerformed
 
+    private void Cooler_jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cooler_jComboBox1ActionPerformed
+ Object item = Cooler_jComboBox1.getSelectedItem();
+                    if ("Declined".equals(item)) {
+                       declined();
+                    } else if ("Pending".equals(item)) {
+                      pending();
+                    }
+                    else if ("Approved".equals(item)) {
+                      approved();
+                    }
+                    else if ("Delivered".equals(item)) {
+                       delivered();
+                    }
+                    else   {
+                       defective();
+                    }          // TODO add your handling code here:
+    }//GEN-LAST:event_Cooler_jComboBox1ActionPerformed
+
+    
+private void declined(){
+try {
+    jTable1.setShowGrid(true);
+            Connection con = DBConn.myConn();
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT outlet_owner,outlet_name,outlet_no,street,next_to,request_date,reject_reason FROM loan_coooler l JOIN rejected_loan_cooler r ON l.ln_col_id = r.loan_cooler_id where approved_by_asm =2 OR approved_by_rsm=2");
+            
             // get columns info
             ResultSetMetaData rsmd = rs.getMetaData();
             int columnCount = rsmd.getColumnCount();
-
+            
             // for changing column and row model
             DefaultTableModel tm = (DefaultTableModel) jTable1.getModel();
-
-            // clear existing columns
+            
+            // clear existing columns 
             tm.setColumnCount(0);
-
+            
             // add specified columns to table
             for (int i = 1; i <= columnCount; i++ ) {
                 tm.addColumn(rsmd.getColumnName(i));
-            }
-
+            }               
+                
             // clear existing rows
             tm.setRowCount(0);
-
+            
             // add rows to table
             while (rs.next()) {
                 String[] a = new String[columnCount];
@@ -342,38 +355,222 @@ System.out.println(rs1+" records affected");
                 tm.addRow(a);
             }
             tm.fireTableDataChanged();
-            DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
-            headerRenderer.setBackground(new Color(255, 0, 0));
+                                           DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
+headerRenderer.setBackground(new Color(255, 0, 0));
 
-            for (int i = 0; i < jTable1.getModel().getColumnCount(); i++) {
-                jTable1.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
-            }
+for (int i = 0; i < jTable1.getModel().getColumnCount(); i++) {
+        jTable1.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
+}
             // Close ResultSet and Statement
             rs.close();
-
-        } catch (Exception ex) {
+            
+        } catch (Exception ex) { 
             JOptionPane.showMessageDialog(this, ex, ex.getMessage(), WIDTH, null);
-        }        // TODO add your handling code here:
-    }//GEN-LAST:event_cooler_jButtonActionPerformed
+        } 
 
-    private void cooler_jButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cooler_jButtonMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cooler_jButtonMouseExited
+}
+    
+    private void pending(){
+try {
+    jTable1.setShowGrid(true);
+            Connection con = DBConn.myConn();
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT outlet_owner,outlet_no,next_to,sales_rep_id,request_date FROM loan_coooler where approved_by_asm =0 OR approved_by_rsm=0");
+            
+            // get columns info
+            ResultSetMetaData rsmd = rs.getMetaData();
+            int columnCount = rsmd.getColumnCount();
+            
+            // for changing column and row model
+            DefaultTableModel tm = (DefaultTableModel) jTable1.getModel();
+            
+            // clear existing columns 
+            tm.setColumnCount(0);
+            
+            // add specified columns to table
+            for (int i = 1; i <= columnCount; i++ ) {
+                tm.addColumn(rsmd.getColumnName(i));
+            }               
+                
+            // clear existing rows
+            tm.setRowCount(0);
+            
+            // add rows to table
+            while (rs.next()) {
+                String[] a = new String[columnCount];
+                for(int i = 0; i < columnCount; i++) {
+                    a[i] = rs.getString(i+1);
+                }
+                tm.addRow(a);
+            }
+            tm.fireTableDataChanged();
+                                           DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
+headerRenderer.setBackground(new Color(255, 0, 0));
 
-    private void cooler_jButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cooler_jButtonMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cooler_jButtonMouseClicked
+for (int i = 0; i < jTable1.getModel().getColumnCount(); i++) {
+        jTable1.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
+}
+            // Close ResultSet and Statement
+            rs.close();
+            
+        } catch (Exception ex) { 
+            JOptionPane.showMessageDialog(this, ex, ex.getMessage(), WIDTH, null);
+        } 
 
-    private void contract_jButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contract_jButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_contract_jButtonActionPerformed
+}
 
+    private void approved(){
+try {
+    jTable1.setShowGrid(true);
+            Connection con = DBConn.myConn();
+            Statement stmt = con.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT outlet_owner,outlet_no,next_to,sales_rep_id,request_date FROM loan_coooler where approved_by_asm =1 AND approved_by_rsm=1 AND approved_by_contlr=0");
+            
+            // get columns info
+            ResultSetMetaData rsmd = rs.getMetaData();
+            int columnCount = rsmd.getColumnCount();
+            
+            // for changing column and row model
+            DefaultTableModel tm = (DefaultTableModel) jTable1.getModel();
+            
+            // clear existing columns 
+            tm.setColumnCount(0);
+            
+            // add specified columns to table
+            for (int i = 1; i <= columnCount; i++ ) {
+                tm.addColumn(rsmd.getColumnName(i));
+            }               
+                
+            // clear existing rows
+            tm.setRowCount(0);
+            
+            // add rows to table
+            while (rs.next()) {
+                String[] a = new String[columnCount];
+                for(int i = 0; i < columnCount; i++) {
+                    a[i] = rs.getString(i+1);
+                }
+                tm.addRow(a);
+            }
+            tm.fireTableDataChanged();
+                                           DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
+headerRenderer.setBackground(new Color(255, 0, 0));
 
+for (int i = 0; i < jTable1.getModel().getColumnCount(); i++) {
+        jTable1.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
+}
+            // Close ResultSet and Statement
+            rs.close();
+            
+        } catch (Exception ex) { 
+            JOptionPane.showMessageDialog(this, ex, ex.getMessage(), WIDTH, null);
+        } 
+
+}
+    
+    private void delivered(){
+try {
+    jTable1.setShowGrid(true);
+            Connection con = DBConn.myConn();
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT v.cooler_sn, l.cooler_type,l.serial_no,outlet_no,outlet_name,location,street FROM vtrack_release_info v  JOIN loan_coooler l ON v.request_id = l.ln_col_id WHERE is_delivered=1");
+            
+            // get columns info
+            ResultSetMetaData rsmd = rs.getMetaData();
+            int columnCount = rsmd.getColumnCount();
+            
+            // for changing column and row model
+            DefaultTableModel tm = (DefaultTableModel) jTable1.getModel();
+            
+            // clear existing columns 
+            tm.setColumnCount(0);
+            
+            // add specified columns to table
+            for (int i = 1; i <= columnCount; i++ ) {
+                tm.addColumn(rsmd.getColumnName(i));
+            }               
+                
+            // clear existing rows
+            tm.setRowCount(0);
+            
+            // add rows to table
+            while (rs.next()) {
+                String[] a = new String[columnCount];
+                for(int i = 0; i < columnCount; i++) {
+                    a[i] = rs.getString(i+1);
+                }
+                tm.addRow(a);
+            }
+            tm.fireTableDataChanged();
+                                           DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
+headerRenderer.setBackground(new Color(255, 0, 0));
+
+for (int i = 0; i < jTable1.getModel().getColumnCount(); i++) {
+        jTable1.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
+}
+            // Close ResultSet and Statement
+            rs.close();
+            
+        } catch (Exception ex) { 
+            JOptionPane.showMessageDialog(this, ex, ex.getMessage(), WIDTH, null);
+        } 
+
+}
+    
+    private void defective(){
+try {
+    jTable1.setShowGrid(true);
+            Connection con = DBConn.myConn();
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT outlet_name,outlet_no,street,near_to,cooler_type,date_of_repair,repairedby FROM cooler_maintenance");
+            
+            // get columns info
+            ResultSetMetaData rsmd = rs.getMetaData();
+            int columnCount = rsmd.getColumnCount();
+            
+            // for changing column and row model
+            DefaultTableModel tm = (DefaultTableModel) jTable1.getModel();
+            
+            // clear existing columns 
+            tm.setColumnCount(0);
+            
+            // add specified columns to table
+            for (int i = 1; i <= columnCount; i++ ) {
+                tm.addColumn(rsmd.getColumnName(i));
+            }               
+                
+            // clear existing rows
+            tm.setRowCount(0);
+            
+            // add rows to table
+            while (rs.next()) {
+                String[] a = new String[columnCount];
+                for(int i = 0; i < columnCount; i++) {
+                    a[i] = rs.getString(i+1);
+                }
+                tm.addRow(a);
+            }
+            tm.fireTableDataChanged();
+                                           DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
+headerRenderer.setBackground(new Color(255, 0, 0));
+
+for (int i = 0; i < jTable1.getModel().getColumnCount(); i++) {
+        jTable1.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
+}
+            // Close ResultSet and Statement
+            rs.close();
+            
+        } catch (Exception ex) { 
+            JOptionPane.showMessageDialog(this, ex, ex.getMessage(), WIDTH, null);
+        } 
+
+}
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> Cooler_jComboBox1;
     private javax.swing.JButton Export_jButton;
     private javax.swing.JButton Print_jButton;
     private javax.swing.JButton contract_jButton;
-    private javax.swing.JButton cooler_jButton;
     private javax.swing.JButton customer_jButton;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
