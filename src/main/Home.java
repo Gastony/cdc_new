@@ -82,6 +82,7 @@ public class Home extends javax.swing.JFrame {
         Reports_jButton = new javax.swing.JButton();
         Declinedl_orders_jButton = new javax.swing.JButton();
         Rented_jButton1 = new javax.swing.JButton();
+        maintenanceCoolers_jButton1 = new javax.swing.JButton();
         Data_jPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -246,6 +247,22 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
+        maintenanceCoolers_jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/main/images/Maintenance4.png"))); // NOI18N
+        maintenanceCoolers_jButton1.setText("MAINTENANCE");
+        maintenanceCoolers_jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                maintenanceCoolers_jButton1MousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                maintenanceCoolers_jButton1MouseReleased(evt);
+            }
+        });
+        maintenanceCoolers_jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                maintenanceCoolers_jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout Button_jPanelLayout = new javax.swing.GroupLayout(Button_jPanel);
         Button_jPanel.setLayout(Button_jPanelLayout);
         Button_jPanelLayout.setHorizontalGroup(
@@ -260,7 +277,8 @@ public class Home extends javax.swing.JFrame {
                     .addComponent(Reports_jButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Update_info_jButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Declinedl_orders_jButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Rented_jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(Rented_jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(maintenanceCoolers_jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         Button_jPanelLayout.setVerticalGroup(
@@ -272,17 +290,19 @@ public class Home extends javax.swing.JFrame {
                 .addComponent(Declinedl_orders_jButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36)
                 .addComponent(Pending_orders_jButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39)
+                .addGap(36, 36, 36)
                 .addComponent(Approved_orders_jButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
+                .addGap(36, 36, 36)
                 .addComponent(Update_info_jButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39)
+                .addGap(36, 36, 36)
                 .addComponent(Contracts_jButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
+                .addGap(36, 36, 36)
                 .addComponent(Rented_jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
+                .addGap(36, 36, 36)
+                .addComponent(maintenanceCoolers_jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36)
                 .addComponent(Reports_jButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(137, Short.MAX_VALUE))
+                .addGap(80, 80, 80))
         );
 
         jSplitPane1.setLeftComponent(Button_jPanel);
@@ -530,6 +550,19 @@ Rented rented = new Rented();
        jSplitPane1.setRightComponent( rented);        // TODO add your handling code here:
     }//GEN-LAST:event_Rented_jButton1ActionPerformed
 
+    private void maintenanceCoolers_jButton1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_maintenanceCoolers_jButton1MousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_maintenanceCoolers_jButton1MousePressed
+
+    private void maintenanceCoolers_jButton1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_maintenanceCoolers_jButton1MouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_maintenanceCoolers_jButton1MouseReleased
+
+    private void maintenanceCoolers_jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_maintenanceCoolers_jButton1ActionPerformed
+Maintenance maintenance = new Maintenance();
+        jSplitPane1.setRightComponent( maintenance);//        // TODO add your handling code here:
+    }//GEN-LAST:event_maintenanceCoolers_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      * @throws java.io.IOException
@@ -597,6 +630,7 @@ new Home();
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JLabel logo_Label;
+    private javax.swing.JButton maintenanceCoolers_jButton1;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }
