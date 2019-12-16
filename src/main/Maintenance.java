@@ -44,7 +44,7 @@ public class Maintenance extends javax.swing.JPanel implements
  
             Connection con = DBConn.myConn();
             Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT outlet_owner,outlet_no,next_to,request_date,reject_reason FROM loan_coooler l JOIN rejected_loan_cooler r ON l.ln_col_id = r.loan_cooler_id where approved_by_asm =2 OR approved_by_rsm=2");
+            ResultSet rs = stmt.executeQuery("SELECT outlet_name,outlet_no,street,near_to,cooler_type,date_of_repair,repairedby FROM cooler_maintenance");
             
             // get columns info
             ResultSetMetaData rsmd = rs.getMetaData();
