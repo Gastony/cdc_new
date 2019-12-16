@@ -156,8 +156,11 @@ public class Reports extends javax.swing.JPanel {
 try {
     jTable1.setShowGrid(true);
             Connection con = DBConn.myConn();
+            PreparedStatement stmt1 = con.prepareStatement(" ALTER view loanCoolerView as select   *  , case when approved_by_asm = 0 and approved_by_rsm = 0 THEN 'PENDING' when approved_by_asm = 0 and approved_by_rsm = 1 THEN 'PENDING' when approved_by_asm = 1 and approved_by_rsm = 0 THEN 'PENDING' when approved_by_asm = 1 and approved_by_rsm = 1 THEN 'APPROVED'else 'DECLINED' end cooler_status from loan_coooler");
+int rs1 = stmt1.executeUpdate();
+System.out.println(rs1+" records affected");
             Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT doc_no,contract_no,outlet_name,outlet_owner,location,street,next_to,route,empties,order_no,recomendations,approved_by_asm,approved_by_rsm FROM loan_coooler");
+            ResultSet rs = stmt.executeQuery("SELECT doc_no,contract_no,outlet_name,outlet_owner,location,street,next_to,route,order_no,recomendations,cooler_status FROM loanCoolerView");
             
             // get columns info
             ResultSetMetaData rsmd = rs.getMetaData();
@@ -204,9 +207,15 @@ for (int i = 0; i < jTable1.getModel().getColumnCount(); i++) {
 try {
     jTable1.setShowGrid(true);
             Connection con = DBConn.myConn();
+           PreparedStatement stmt1 = con.prepareStatement(" CREATE OR REPLACE  view coolerView as select   *  , case when is_rented = 0 THEN 'PENDING' when is_rented = 1  THEN 'RENTED'  end cooler_status from coolers ");
+int rs1 = stmt1.executeUpdate();
+System.out.println(rs1+" records affected");
             Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT cooler_id,cooler_serialno,cooler_description,Cooler_type_id FROM coolers ");
+            ResultSet rs = stmt.executeQuery("SELECT cooler_sn,cooler_description,cooler_tag,cooler_status FROM coolerView ");
             
+
+
+
             // get columns info
             ResultSetMetaData rsmd = rs.getMetaData();
             int columnCount = rsmd.getColumnCount();
