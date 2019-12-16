@@ -29,7 +29,7 @@ public class Pending extends javax.swing.JPanel {
     jTable1.setShowGrid(true);
             Connection con = DBConn.myConn();
             Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT outlet_owner,outlet_no,next_to,sales_rep_id,request_date FROM loan_coooler where approved_by_asm =0 OR approved_by_rsm=0");
+            ResultSet rs = stmt.executeQuery("SELECT outlet_owner,outlet_no,next_to,sales_rep_name,request_date FROM loan_coooler l JOIN sales_rep s ON l.sales_rep_id=s.sales_rep_id where approved_by_asm =0 OR approved_by_rsm=0");
             
             // get columns info
             ResultSetMetaData rsmd = rs.getMetaData();

@@ -91,7 +91,7 @@ public class Reports extends javax.swing.JPanel {
             }
         });
 
-        Cooler_jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Declined", "Pending", "Approved", "Delivered", "Defective" }));
+        Cooler_jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "COOLERS", "Declined", "Pending", "Approved", "Delivered", "Defective" }));
         Cooler_jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Cooler_jComboBox1ActionPerformed(evt);
@@ -315,8 +315,11 @@ System.out.println(rs1+" records affected");
                     else if ("Delivered".equals(item)) {
                        delivered();
                     }
-                    else   {
+                    else if ("Defective".equals(item)) {
                        defective();
+                    }
+                    else   {
+                      jTable1.clearSelection();
                     }          // TODO add your handling code here:
     }//GEN-LAST:event_Cooler_jComboBox1ActionPerformed
 
@@ -375,7 +378,7 @@ try {
     jTable1.setShowGrid(true);
             Connection con = DBConn.myConn();
             Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT outlet_owner,outlet_no,next_to,sales_rep_id,request_date FROM loan_coooler where approved_by_asm =0 OR approved_by_rsm=0");
+            ResultSet rs = stmt.executeQuery("SELECT outlet_owner,outlet_no,next_to,sales_rep_name,request_date FROM loan_coooler l JOIN sales_rep s ON l.sales_rep_id=s.sales_rep_id where approved_by_asm =0 OR approved_by_rsm=0");
             
             // get columns info
             ResultSetMetaData rsmd = rs.getMetaData();
@@ -424,7 +427,7 @@ try {
     jTable1.setShowGrid(true);
             Connection con = DBConn.myConn();
             Statement stmt = con.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT outlet_owner,outlet_no,next_to,sales_rep_id,request_date FROM loan_coooler where approved_by_asm =1 AND approved_by_rsm=1 AND approved_by_contlr=0");
+             ResultSet rs = stmt.executeQuery("SELECT outlet_owner,outlet_no,next_to,sales_rep_name,request_date FROM loan_coooler l JOIN sales_rep s ON l.sales_rep_id=s.sales_rep_id where approved_by_asm =1 AND approved_by_rsm=1 AND approved_by_contlr=0");
             
             // get columns info
             ResultSetMetaData rsmd = rs.getMetaData();
@@ -473,7 +476,7 @@ try {
     jTable1.setShowGrid(true);
             Connection con = DBConn.myConn();
             Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT v.cooler_sn, l.cooler_type,l.serial_no,outlet_no,outlet_name,location,street FROM vtrack_release_info v  JOIN loan_coooler l ON v.request_id = l.ln_col_id WHERE is_delivered=1");
+            ResultSet rs = stmt.executeQuery("SELECT v.cooler_sn, l.cooler_type,outlet_no,outlet_name,location,street FROM vtrack_release_info v  JOIN loan_coooler l ON v.request_id = l.ln_col_id WHERE is_delivered=1");
             
             // get columns info
             ResultSetMetaData rsmd = rs.getMetaData();
