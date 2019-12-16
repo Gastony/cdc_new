@@ -29,7 +29,7 @@ public class Rented extends javax.swing.JPanel {
     jTable1.setShowGrid(true);
             Connection con = DBConn.myConn();
             Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT v.cooler_sn, l.cooler_type FROM vtrack_release_info v  JOIN loan_coooler l ON v.request_id = l.ln_col_id WHERE is_delivered=1");
+            ResultSet rs = stmt.executeQuery("SELECT v.cooler_sn, l.cooler_type,outlet_no,outlet_name,location,street FROM vtrack_release_info v  JOIN loan_coooler l ON v.request_id = l.ln_col_id WHERE is_delivered=1");
             
             // get columns info
             ResultSetMetaData rsmd = rs.getMetaData();
