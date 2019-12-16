@@ -76,6 +76,14 @@ public class Reports extends javax.swing.JPanel {
 
         cooler_jButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/main/images/cooler0.png"))); // NOI18N
         cooler_jButton.setText("Cooler Type");
+        cooler_jButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cooler_jButtonMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                cooler_jButtonMouseExited(evt);
+            }
+        });
         cooler_jButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cooler_jButtonActionPerformed(evt);
@@ -83,6 +91,19 @@ public class Reports extends javax.swing.JPanel {
         });
 
         contract_jButton.setText("Contracts");
+        contract_jButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                contract_jButtonMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                contract_jButtonMouseExited(evt);
+            }
+        });
+        contract_jButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                contract_jButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -106,20 +127,14 @@ public class Reports extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(contract_jButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cooler_jButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap())
+                    .addComponent(contract_jButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cooler_jButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(customer_jButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Print_jButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(Export_jButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Print_jButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Export_jButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
 
@@ -203,60 +218,6 @@ for (int i = 0; i < jTable1.getModel().getColumnCount(); i++) {
         }        // TODO add your handling code here:
     }//GEN-LAST:event_customer_jButtonActionPerformed
 
-    private void cooler_jButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cooler_jButtonActionPerformed
-try {
-    jTable1.setShowGrid(true);
-            Connection con = DBConn.myConn();
-           PreparedStatement stmt1 = con.prepareStatement(" CREATE OR REPLACE  view coolerView as select   *  , case when is_rented = 0 THEN 'PENDING' when is_rented = 1  THEN 'RENTED'  end cooler_status from coolers ");
-int rs1 = stmt1.executeUpdate();
-System.out.println(rs1+" records affected");
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT cooler_sn,cooler_description,cooler_tag,cooler_status FROM coolerView ");
-            
-
-
-
-            // get columns info
-            ResultSetMetaData rsmd = rs.getMetaData();
-            int columnCount = rsmd.getColumnCount();
-            
-            // for changing column and row model
-            DefaultTableModel tm = (DefaultTableModel) jTable1.getModel();
-            
-            // clear existing columns 
-            tm.setColumnCount(0);
-            
-            // add specified columns to table
-            for (int i = 1; i <= columnCount; i++ ) {
-                tm.addColumn(rsmd.getColumnName(i));
-            }               
-                
-            // clear existing rows
-            tm.setRowCount(0);
-            
-            // add rows to table
-            while (rs.next()) {
-                String[] a = new String[columnCount];
-                for(int i = 0; i < columnCount; i++) {
-                    a[i] = rs.getString(i+1);
-                }
-                tm.addRow(a);
-            }
-            tm.fireTableDataChanged();
-                                           DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
-headerRenderer.setBackground(new Color(255, 0, 0));
-
-for (int i = 0; i < jTable1.getModel().getColumnCount(); i++) {
-        jTable1.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
-}
-            // Close ResultSet and Statement
-            rs.close();
-            
-        } catch (Exception ex) { 
-            JOptionPane.showMessageDialog(this, ex, ex.getMessage(), WIDTH, null);
-        }        // TODO add your handling code here:
-    }//GEN-LAST:event_cooler_jButtonActionPerformed
-
     private void Export_jButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Export_jButtonActionPerformed
  try{
  
@@ -277,13 +238,18 @@ for (int i = 0; i < jTable1.getModel().getColumnCount(); i++) {
              row1.createCell(7).setCellValue("ROUTE NAME");
               row1.createCell(8).setCellValue("EMPTIES");
                row1.createCell(9).setCellValue("ORDER(TWICE COOLER CAPACITY)");
-                  row1.createCell(10).setCellValue("SALESMAN NAME");
-            row1.createCell(11).setCellValue("MOTIVATION");
-             row1.createCell(12).setCellValue("APPROVED BY ASM");
-              row1.createCell(13).setCellValue("APPROVED BY RSM");
+                  row1.createCell(10).setCellValue("MOTIVATION");
+            row1.createCell(11).setCellValue("REQUEST DATE");
+             row1.createCell(12).setCellValue("STATUS");
+              
               
             Row row2 ;
-            ResultSet rs = statement.executeQuery("SELECT doc_no,contract_no,outlet_name,outlet_owner,location,street,next_to,route,empties,order_no,recomendations,approved_by_asm,approved_by_rsm FROM loan_coooler");
+           PreparedStatement stmt1 = con.prepareStatement(" CREATE OR REPLACE view loanCoolerView as select   *  , case when approved_by_asm = 0 and approved_by_rsm = 0 THEN 'PENDING' when approved_by_asm = 0 and approved_by_rsm = 1 THEN 'PENDING' when approved_by_asm = 1 and approved_by_rsm = 0 THEN 'PENDING' when approved_by_asm = 1 and approved_by_rsm = 1 THEN 'APPROVED'else 'DECLINED' end cooler_status from loan_coooler");
+int rs1 = stmt1.executeUpdate();
+System.out.println(rs1+" records affected");
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT doc_no,contract_no,outlet_name,outlet_owner,location,street,next_to,route,empties,order_no,recomendations,request_date,cooler_status FROM loanCoolerView");
+            
             while(rs.next()){
                 int a = rs.getRow();
                 row2 = worksheet.createRow((short)a);
@@ -330,6 +296,77 @@ for (int i = 0; i < jTable1.getModel().getColumnCount(); i++) {
             Logger.getLogger(Reports.class.getName()).log(Level.SEVERE, null, ex);
         } // TODO add your handling code here:
     }//GEN-LAST:event_Print_jButtonActionPerformed
+
+    private void contract_jButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_contract_jButtonMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_contract_jButtonMouseExited
+
+    private void contract_jButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_contract_jButtonMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_contract_jButtonMouseClicked
+
+    private void cooler_jButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cooler_jButtonActionPerformed
+        try {
+            jTable1.setShowGrid(true);
+            Connection con = DBConn.myConn();
+            PreparedStatement stmt1 = con.prepareStatement(" CREATE OR REPLACE  view coolerView as select   *  , case when is_rented = 0 THEN 'PENDING' when is_rented = 1  THEN 'RENTED'  end cooler_status from coolers ");
+            int rs1 = stmt1.executeUpdate();
+            System.out.println(rs1+" records affected");
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT cooler_sn,cooler_description,cooler_tag,cooler_status FROM coolerView ");
+
+            // get columns info
+            ResultSetMetaData rsmd = rs.getMetaData();
+            int columnCount = rsmd.getColumnCount();
+
+            // for changing column and row model
+            DefaultTableModel tm = (DefaultTableModel) jTable1.getModel();
+
+            // clear existing columns
+            tm.setColumnCount(0);
+
+            // add specified columns to table
+            for (int i = 1; i <= columnCount; i++ ) {
+                tm.addColumn(rsmd.getColumnName(i));
+            }
+
+            // clear existing rows
+            tm.setRowCount(0);
+
+            // add rows to table
+            while (rs.next()) {
+                String[] a = new String[columnCount];
+                for(int i = 0; i < columnCount; i++) {
+                    a[i] = rs.getString(i+1);
+                }
+                tm.addRow(a);
+            }
+            tm.fireTableDataChanged();
+            DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
+            headerRenderer.setBackground(new Color(255, 0, 0));
+
+            for (int i = 0; i < jTable1.getModel().getColumnCount(); i++) {
+                jTable1.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
+            }
+            // Close ResultSet and Statement
+            rs.close();
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex, ex.getMessage(), WIDTH, null);
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_cooler_jButtonActionPerformed
+
+    private void cooler_jButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cooler_jButtonMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cooler_jButtonMouseExited
+
+    private void cooler_jButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cooler_jButtonMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cooler_jButtonMouseClicked
+
+    private void contract_jButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contract_jButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_contract_jButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
