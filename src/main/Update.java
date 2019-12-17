@@ -291,7 +291,7 @@ public class Update extends javax.swing.JPanel {
                 stmt3.setString(1, value6);
                 stmt3.setString(2, value7);
                 stmt3.setString(3, str);
-                stmt.setString(4, value8);
+                stmt3.setString(4, value8);
                 int rs3 = stmt3.executeUpdate();
 
                 int rs2 = stmt2.executeUpdate();

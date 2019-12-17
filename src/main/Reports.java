@@ -251,8 +251,7 @@ for (int i = 0; i < jTable1.getModel().getColumnCount(); i++) {
                     }
                     else   {
                     
-                      DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-model.setRowCount(0);
+                      jTable1.repaint();
                     }          // TODO add your handling code here:
     }//GEN-LAST:event_Cooler_jComboBox1ActionPerformed
 
@@ -277,8 +276,7 @@ model.setRowCount(0);
                     }
                     else   {
                     
-                      DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-model.setRowCount(0);
+                      jTable1.repaint();
                     }           // TODO add your handling code here:
     }//GEN-LAST:event_export_jComboBoxActionPerformed
 
@@ -483,9 +481,12 @@ for (int i = 0; i < jTable1.getModel().getColumnCount(); i++) {
 try {
     jTable1.setShowGrid(true);
             Connection con = DBConn.myConn();
+            PreparedStatement stmt1 = con.prepareStatement(" CREATE OR REPLACE view maintenanceCoolerView as select   *  , case when r_status = 0  THEN 'NOT FIXED' when r_status = 1 THEN 'FIXED'  end cooler_status FROM cooler_maintenance");
+int rs1 = stmt1.executeUpdate();
+System.out.println(rs1+" records affected");
             Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT outlet_name,outlet_no,street,near_to,cooler_type,date_of_repair,repairedby FROM cooler_maintenance");
-            
+            ResultSet rs = stmt.executeQuery("SELECT outlet_name,outlet_no,street,near_to,cooler_type,cooler_status FROM maintenanceCoolerView");
+             
             // get columns info
             ResultSetMetaData rsmd = rs.getMetaData();
             int columnCount = rsmd.getColumnCount();
@@ -838,8 +839,12 @@ private void defectiveCoolers(){
             
               
             Row row2 ;
+            PreparedStatement stmt1 = con.prepareStatement(" CREATE OR REPLACE view maintenanceCoolerView as select   *  , case when r_status = 0  THEN 'NOT FIXED' when r_status = 1 THEN 'FIXED'  end cooler_status FROM cooler_maintenance");
+int rs1 = stmt1.executeUpdate();
+System.out.println(rs1+" records affected");
             Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT outlet_name,outlet_no,street,near_to,cooler_type,date_of_repair,repairedby FROM cooler_maintenance");
+            ResultSet rs = stmt.executeQuery("SELECT outlet_name,outlet_no,street,near_to,cooler_type,cooler_status FROM maintenanceCoolerView");
+            
             while(rs.next()){
                 int a = rs.getRow();
                 row2 = worksheet.createRow((short)a);

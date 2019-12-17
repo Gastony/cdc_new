@@ -17,6 +17,7 @@ import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.Statement;
@@ -43,8 +44,11 @@ public class Maintenance extends javax.swing.JPanel implements
               jTable1.setShowGrid(true);
  
             Connection con = DBConn.myConn();
+            PreparedStatement stmt1 = con.prepareStatement(" CREATE OR REPLACE view maintenanceCoolerView as select   *  , case when r_status = 0  THEN 'NOT FIXED' when r_status = 1 THEN 'FIXED'  end cooler_status FROM cooler_maintenance");
+int rs1 = stmt1.executeUpdate();
+System.out.println(rs1+" records affected");
             Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT outlet_name,outlet_no,street,near_to,cooler_type,date_of_repair,repairedby FROM cooler_maintenance");
+            ResultSet rs = stmt.executeQuery("SELECT outlet_name,outlet_no,street,near_to,cooler_type,cooler_status FROM maintenanceCoolerView");
             
             // get columns info
             ResultSetMetaData rsmd = rs.getMetaData();
