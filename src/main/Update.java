@@ -269,13 +269,15 @@ public class Update extends javax.swing.JPanel {
                 String value6=Serial_combobox.getSelectedItem().toString();
                 String value7=Gate_pass_jTextField.getText();
                 String str= CustomerName_jTextField.getText();
+                String value8=OutletNumber_jTextField.getText();
                 Connection con = DBConn.myConn();
-                PreparedStatement stmt = con.prepareStatement("UPDATE loan_coooler SET outlet_tag=? ,cooler_type=?,serial_no=?,approved_by_contlr=1 WHERE outlet_owner=?");
+                PreparedStatement stmt = con.prepareStatement("UPDATE loan_coooler SET outlet_tag=? ,cooler_type=?,serial_no=?,approved_by_contlr=1 WHERE outlet_owner=? AND outlet_no=?");
                 stmt.setString(1, value1);
             
                 stmt.setString(2, value4);
                 stmt.setString(3, value6);
                 stmt.setString(4, str);
+                stmt.setString(5, value8);
 
                 int rs = stmt.executeUpdate();
 
@@ -285,10 +287,11 @@ public class Update extends javax.swing.JPanel {
 
                 stmt2.setString(2, value5);
                 stmt2.setString(3, value6);
-                PreparedStatement stmt3 = con.prepareStatement("INSERT INTO vtrack_release_info(cooler_sn,gate_pass,request_id,release_date) VALUES(?,?,(SELECT  ln_col_id FROM loan_coooler WHERE outlet_owner=?),curdate()) ");
+                PreparedStatement stmt3 = con.prepareStatement("INSERT INTO vtrack_release_info(cooler_sn,gate_pass,request_id,release_date) VALUES(?,?,(SELECT  ln_col_id FROM loan_coooler WHERE outlet_owner=? AND outlet_no=?),now()) ");
                 stmt3.setString(1, value6);
                 stmt3.setString(2, value7);
                 stmt3.setString(3, str);
+                stmt.setString(4, value8);
                 int rs3 = stmt3.executeUpdate();
 
                 int rs2 = stmt2.executeUpdate();
