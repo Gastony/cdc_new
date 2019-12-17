@@ -90,15 +90,17 @@ public class Home extends javax.swing.JFrame {
         setExtendedState(6);
         setIconImages(null);
 
-        jPanel1.setBackground(new java.awt.Color(255, 0, 0));
+        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
 
         org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, logo_Label, org.jdesktop.beansbinding.ELProperty.create("${icon}"), logo_Label, org.jdesktop.beansbinding.BeanProperty.create("icon"));
         bindingGroup.addBinding(binding);
 
         jLabel1.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(240, 240, 240));
         jLabel1.setText("COCA-COLA KWANZA LIMITED");
 
         jLabel2.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(240, 240, 240));
         jLabel2.setText("COOLER DELIVERY AND COLLECTION");
 
         Search_jTextField.setToolTipText("SEARCH BY NAME");
@@ -116,7 +118,7 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
-        Logo_jLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/main/images/logo.PNG"))); // NOI18N
+        Logo_jLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/main/images/CCBA logo_backend tz.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
