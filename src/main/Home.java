@@ -72,6 +72,7 @@ public class Home extends javax.swing.JFrame {
         Search_jTextField = new javax.swing.JTextField();
         Search_jButton = new javax.swing.JButton();
         Logo_jLabel = new javax.swing.JLabel();
+        logOut_jButton = new javax.swing.JButton();
         jSplitPane1 = new javax.swing.JSplitPane();
         Button_jPanel = new javax.swing.JPanel();
         All_orders_jButton = new javax.swing.JButton();
@@ -120,6 +121,14 @@ public class Home extends javax.swing.JFrame {
 
         Logo_jLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/main/images/CCBA logo_backend tz.png"))); // NOI18N
 
+        logOut_jButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/main/images/logout16.png"))); // NOI18N
+        logOut_jButton.setText("Log Out");
+        logOut_jButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logOut_jButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -132,16 +141,16 @@ public class Home extends javax.swing.JFrame {
                 .addGap(37, 37, 37)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(Search_jTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(Search_jButton)))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(Search_jTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(Search_jButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(logOut_jButton))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -154,10 +163,11 @@ public class Home extends javax.swing.JFrame {
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(Search_jButton)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(Search_jButton)
+                                    .addComponent(logOut_jButton))
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(1, 1, 1)
@@ -565,6 +575,12 @@ Maintenance maintenance = new Maintenance();
         jSplitPane1.setRightComponent( maintenance);//        // TODO add your handling code here:
     }//GEN-LAST:event_maintenanceCoolers_jButton1ActionPerformed
 
+    private void logOut_jButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOut_jButtonActionPerformed
+this.dispose();
+LoginForm L= new LoginForm();
+L.setVisible(true);
+    }//GEN-LAST:event_logOut_jButtonActionPerformed
+
     /**
      * @param args the command line arguments
      * @throws java.io.IOException
@@ -631,6 +647,7 @@ new Home();
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSplitPane jSplitPane1;
+    private javax.swing.JButton logOut_jButton;
     private javax.swing.JLabel logo_Label;
     private javax.swing.JButton maintenanceCoolers_jButton1;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
