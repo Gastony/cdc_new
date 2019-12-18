@@ -44,11 +44,11 @@ public class Maintenance extends javax.swing.JPanel implements
               jTable1.setShowGrid(true);
  
             Connection con = DBConn.myConn();
-            PreparedStatement stmt1 = con.prepareStatement(" CREATE OR REPLACE view maintenanceCoolerView as select   *  , case when r_status = 0  THEN 'NOT FIXED' when r_status = 1 THEN 'FIXED'  end cooler_status FROM cooler_maintenance");
+            PreparedStatement stmt1 = con.prepareStatement(" CREATE OR REPLACE view maintenanceCoolerView as select   *  , case when r_status = 0  THEN 'RECEIVED' when r_status = 1 THEN 'ASSIGNED' when r_status = 2 THEN 'FIXED' end cooler_status FROM cooler_maintenance ");
 int rs1 = stmt1.executeUpdate();
 System.out.println(rs1+" records affected");
             Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT outlet_name,outlet_no,street,near_to,cooler_type,cooler_status FROM maintenanceCoolerView");
+            ResultSet rs = stmt.executeQuery("SELECT outlet_name,outlet_no,street,near_to,cooler_type,sales_rep_name,occd_name,cooler_status FROM maintenanceCoolerView M JOIN sales_rep S ON M.sales_rep_id = S.sales_rep_id JOIN occd O ON S.occd_id = O.occd_id");
             
             // get columns info
             ResultSetMetaData rsmd = rs.getMetaData();
