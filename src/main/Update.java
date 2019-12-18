@@ -305,6 +305,11 @@ public class Update extends javax.swing.JPanel {
                 CoolerTag_jTextField.setText("");
                 CoolerType_jTextField.setText("");
                 CoolerAssetnumber_jTextField.setText("");
+                
+                CustomerName_jTextField.setText("");
+OutletName_jTextField.setText("");
+Location_jTextField.setText("");
+OutletNumber_jTextField.setText("");
                
 
                 JOptionPane.showMessageDialog(null, "Records successful updated");
