@@ -30,7 +30,7 @@ public class Approved extends javax.swing.JPanel {
              jTable1.setShowGrid(true);
             Connection con = DBConn.myConn();
             Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT outlet_owner,outlet_no,next_to,sales_rep_name,request_date FROM loan_coooler l JOIN sales_rep s ON l.sales_rep_id=s.sales_rep_id WHERE approved_by_asm =1 AND approved_by_rsm=1 AND approved_by_contlr=0");
+            ResultSet rs = stmt.executeQuery("SELECT outlet_owner,outlet_name,outlet_no,street,location,sales_rep_name,occd_name FROM loan_coooler L JOIN sales_rep S ON L.sales_rep_id = S.sales_rep_id JOIN occd O ON S.occd_id = O.occd_id WHERE approved_by_asm =1 AND approved_by_rsm=1 AND approved_by_contlr=0");
             
             // get columns info
             ResultSetMetaData rsmd = rs.getMetaData();

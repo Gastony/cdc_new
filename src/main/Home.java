@@ -84,6 +84,8 @@ public class Home extends javax.swing.JFrame {
         Declinedl_orders_jButton = new javax.swing.JButton();
         Rented_jButton1 = new javax.swing.JButton();
         maintenanceCoolers_jButton1 = new javax.swing.JButton();
+        gatePasss_jButton = new javax.swing.JButton();
+        readyForShipping_jButton1 = new javax.swing.JButton();
         Data_jPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -251,7 +253,7 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
-        Rented_jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/main/images/delivered_truck-32.png"))); // NOI18N
+        Rented_jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/main/images/delivered_shipping_truck_courier_delivery-32.png"))); // NOI18N
         Rented_jButton1.setText("DELIVERED");
         Rented_jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -275,6 +277,22 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
+        gatePasss_jButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/main/images/wait16.png"))); // NOI18N
+        gatePasss_jButton.setText("GATE PASS");
+        gatePasss_jButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gatePasss_jButtonActionPerformed(evt);
+            }
+        });
+
+        readyForShipping_jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/main/images/ready111.png"))); // NOI18N
+        readyForShipping_jButton1.setText("SHIPPING");
+        readyForShipping_jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                readyForShipping_jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout Button_jPanelLayout = new javax.swing.GroupLayout(Button_jPanel);
         Button_jPanel.setLayout(Button_jPanelLayout);
         Button_jPanelLayout.setHorizontalGroup(
@@ -290,7 +308,9 @@ public class Home extends javax.swing.JFrame {
                     .addComponent(Update_info_jButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Declinedl_orders_jButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Rented_jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(maintenanceCoolers_jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(maintenanceCoolers_jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(gatePasss_jButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(readyForShipping_jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         Button_jPanelLayout.setVerticalGroup(
@@ -298,23 +318,27 @@ public class Home extends javax.swing.JFrame {
             .addGroup(Button_jPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(All_orders_jButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
+                .addGap(25, 25, 25)
                 .addComponent(Declinedl_orders_jButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
+                .addGap(25, 25, 25)
                 .addComponent(Pending_orders_jButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
+                .addGap(25, 25, 25)
                 .addComponent(Approved_orders_jButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
+                .addGap(25, 25, 25)
                 .addComponent(Update_info_jButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
+                .addGap(25, 25, 25)
                 .addComponent(Contracts_jButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
+                .addGap(25, 25, 25)
+                .addComponent(gatePasss_jButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25)
+                .addComponent(readyForShipping_jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25)
                 .addComponent(Rented_jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
+                .addGap(25, 25, 25)
                 .addComponent(maintenanceCoolers_jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
+                .addGap(25, 25, 25)
                 .addComponent(Reports_jButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(80, 80, 80))
+                .addGap(57, 57, 57))
         );
 
         jSplitPane1.setLeftComponent(Button_jPanel);
@@ -403,7 +427,7 @@ int rs1 = stmt1.executeUpdate();
 System.out.println(rs1+" records affected");
 ////
 
- PreparedStatement stmt = con.prepareStatement("SELECT doc_no,contract_no,outlet_name,outlet_owner,outlet_no,location,cooler_status FROM loanCoolerView WHERE outlet_owner LIKE ?");
+ PreparedStatement stmt = con.prepareStatement("SELECT doc_no,outlet_name,outlet_owner,outlet_no,location,sales_rep_name,occd_name,cooler_status FROM loanCoolerView L JOIN sales_rep S ON L.sales_rep_id = S.sales_rep_id JOIN occd O ON S.occd_id = O.occd_id WHERE outlet_owner LIKE ?");
  stmt.setString(1, "%" +id + "%"); 
 
             ResultSet rs = stmt.executeQuery();
@@ -581,6 +605,18 @@ LoginForm L= new LoginForm();
 L.setVisible(true);
     }//GEN-LAST:event_logOut_jButtonActionPerformed
 
+    private void gatePasss_jButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gatePasss_jButtonActionPerformed
+Gatepass gatepass = new Gatepass();
+        Data_jPanel.setBackground(Color.red);
+       jSplitPane1.setRightComponent( gatepass);          // TODO add your handling code here:
+    }//GEN-LAST:event_gatePasss_jButtonActionPerformed
+
+    private void readyForShipping_jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_readyForShipping_jButton1ActionPerformed
+Shipping shipping = new Shipping();
+        Data_jPanel.setBackground(Color.red);
+       jSplitPane1.setRightComponent( shipping);        // TODO add your handling code here:
+    }//GEN-LAST:event_readyForShipping_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      * @throws java.io.IOException
@@ -643,6 +679,7 @@ new Home();
     private javax.swing.JButton Search_jButton;
     public javax.swing.JTextField Search_jTextField;
     private javax.swing.JButton Update_info_jButton;
+    private javax.swing.JButton gatePasss_jButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
@@ -650,6 +687,7 @@ new Home();
     private javax.swing.JButton logOut_jButton;
     private javax.swing.JLabel logo_Label;
     private javax.swing.JButton maintenanceCoolers_jButton1;
+    private javax.swing.JButton readyForShipping_jButton1;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }

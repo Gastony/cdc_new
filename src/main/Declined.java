@@ -44,7 +44,10 @@ public class Declined extends javax.swing.JPanel implements
  
             Connection con = DBConn.myConn();
             Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT outlet_owner,outlet_no,next_to,request_date,reject_reason FROM loan_coooler l JOIN rejected_loan_cooler r ON l.ln_col_id = r.loan_cooler_id where approved_by_asm =2 OR approved_by_rsm=2");
+            ResultSet rs = stmt.executeQuery("SELECT outlet_owner,outlet_name,outlet_no,street,location,sales_rep_name,occd_name,request_date,reject_reason FROM loan_coooler L JOIN sales_rep S ON L.sales_rep_id = S.sales_rep_id JOIN occd O ON S.occd_id = O.occd_id JOIN rejected_loan_cooler r ON L.ln_col_id = r.loan_cooler_id WHERE approved_by_asm =2 OR approved_by_rsm=2"
+
+
+);
             
             // get columns info
             ResultSetMetaData rsmd = rs.getMetaData();
