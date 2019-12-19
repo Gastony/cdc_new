@@ -45,7 +45,7 @@ public class Gatepass extends javax.swing.JPanel implements
  
             Connection con = DBConn.myConn();
             Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT outlet_owner,outlet_name,outlet_no,cooler_type,location,sales_rep_name,occd_name FROM loan_coooler L JOIN sales_rep S ON L.sales_rep_id = S.sales_rep_id JOIN occd O ON S.occd_id = O.occd_id WHERE approved_by_asm =1 AND approved_by_rsm=1 AND approved_by_contlr=1");
+            ResultSet rs = stmt.executeQuery("SELECT outlet_owner,outlet_name,outlet_no,cooler_type,location,sales_rep_name,occd_name FROM loan_coooler L JOIN sales_rep S ON L.sales_rep_id = S.sales_rep_id JOIN occd O ON S.occd_id = O.occd_id WHERE approved_by_asm =1 AND approved_by_rsm=1 AND approved_by_contlr=1  AND approve_by_fmanager=0");
             
             // get columns info
             ResultSetMetaData rsmd = rs.getMetaData();
